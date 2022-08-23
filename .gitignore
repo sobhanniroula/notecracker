@@ -3,7 +3,7 @@
 node_modules/
 frontend/node_modules
 
-#Ignore package-lock.json file
+#Ignore package-lock.json files
 package-lock.json
 frontend/package-lock.json
 
