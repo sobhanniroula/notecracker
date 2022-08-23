@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import axios from "axios";
 import MainScreen from "../MainScreen/MainScreen";
-import notes from "../../data/notes.js";
 
 const MyNotes = () => {
+  const [notes, setNotes] = useState([]);
+
   const handleDeleteNote = (id) => {
     if (window.confirm("Are you sure you want to delete the note?")) {
       console.log("Note id to be deleted: ", id);
     }
   };
+
+  const fetchNotes = async () => {
+    const { data } = await axios.get("/api/notes");
+    setNotes(data);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  });
 
   return (
     <MainScreen title="Welcome back">
