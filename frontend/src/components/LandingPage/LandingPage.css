@@ -1,0 +1,67 @@
+.main {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  /* background-image: url("../../assets/images/background.jpg"); */
+  background-image: url("../../assets/images/taking-notes-1.jpg");
+  /* background-image: url("../../assets/images/background1.jpg"); */
+  background-position: center;
+  background-size: cover;
+}
+
+.title {
+  font-size: 30px;
+}
+
+#notecracker-title {
+  font-size: 50px;
+}
+
+.subtitle {
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.intro-text {
+  width: 100%;
+  text-align: center;
+  padding-right: 60px;
+}
+
+.buttonContainer {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.landingButton {
+  width: 120px;
+  height: 45px;
+}
+
+#registerButton {
+  margin-left: 25px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .intro-text {
+    padding-right: 40px;
+  }
+  .buttonContainer {
+    padding: 0 200px;
+  }
+  .title {
+    padding: 0 100px;
+    font-size: 20px;
+  }
+  #notecracker-title {
+    font-size: 25px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .landingButton {
+    width: 80px;
+    height: 35px;
+  }
+}
