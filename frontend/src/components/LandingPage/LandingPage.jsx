@@ -7,7 +7,7 @@ const LandingPage = () => {
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       // history.push("/mynotes");
-      console.log(userInfo);
+      // console.log(userInfo);
     }
   }, []);
 

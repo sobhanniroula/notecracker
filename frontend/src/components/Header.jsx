@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Navbar bg="success" expand="lg" variant="dark">
       {/* <Container fluid> */}
@@ -27,7 +29,14 @@ const Header = () => {
             <NavDropdown title="Sobhan Niroula" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">Logout</NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  localStorage.removeItem("userInfo");
+                  navigate("/");
+                }}
+              >
+                Logout
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Button, Form } from "react-bootstrap";
+import "./RegisterPage.css";
 import ErrorMessage from "../ErrorMessage";
 import Loading from "../Loading";
 import MainScreen from "../MainScreen/MainScreen";
@@ -17,7 +19,7 @@ const RegisterPage = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -25,8 +27,59 @@ const RegisterPage = () => {
     } else {
       console.log("handle submit: ", e.target.value);
       console.log(name, email, password, confirmPassword, pic);
+      setMessage(null);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+
+        setLoading(true);
+
+        const { data } = await axios.post(
+          "/api/users",
+          { name, pic, email, password },
+          config
+        );
+
+        setLoading(false);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+      } catch (error) {
+        setError(error.response.data.message);
+      }
     }
   };
+
+  // const postPics = (pics) => {
+  //   if (!pics) {
+  //     return setPicMessage("Please select an image");
+  //   }
+  //   setPicMessage(null);
+
+  //   if (pics.type === "image/jpeg" || pics.type === "image/png") {
+  //     console.log(process.env.CLOUDINARY_URL);
+  //     const data = new FormData();
+  //     data.append("file", pics);
+  //     data.append("upload_preset", "notecracker");
+  //     data.append("cloud_name", "dvunony7t");
+  //     fetch("https:/res.cloudinary.com/dvunony7t/image/upload", {
+  //       // fetch("process.env.CLOUDINARY_URL/image/upload", {
+  //       method: "post",
+  //       body: data,
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setPic(data.url.toString());
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     return setPicMessage("Please select an image");
+  //   }
+  // };
 
   return (
     <MainScreen title="Signup">
@@ -82,7 +135,7 @@ const RegisterPage = () => {
           <Form.Group controlId="pic">
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control
-              // onChange={(e) => postDetails(e.target.files[0])}
+              // onChange={(e) => postPics(e.target.files[0])}
               // id="custom-file"
               type="file"
               label="Upload Profile Picture"
@@ -90,7 +143,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          <Button variant="success" type="submit">
+          <Button id="register-submit-button" variant="success" type="submit">
             Register
           </Button>
         </Form>
